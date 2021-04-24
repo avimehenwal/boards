@@ -1,15 +1,15 @@
 import { Row, Col } from 'antd';
 import { Typography } from 'antd';
 import React, { useContext } from 'react'
-import { CountContext } from '../../App'
+import { StateContext } from '../../App'
 
 const { Text, Title } = Typography;
 
 export const Header = ({ text, stage }) => {
-  const countContext = useContext(CountContext)
+  const countContext = useContext(StateContext)
 
   return (
-    <header onClick={() => countContext.countDispatch({ type: 'RESET' })}>
+    <header onClick={() => countContext.stateDispatch({ type: 'RESET' })}>
       <Row type="flex" align="middle" justify="center">
         <Title level={1}>{text}</Title>
         <br></br>

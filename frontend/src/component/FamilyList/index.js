@@ -1,7 +1,7 @@
 import { List, Card } from 'antd';
 import React, { useContext, useEffect } from 'react'
 // import { Gstates } from '../../App'
-import { CountContext } from '../../App'
+import { StateContext } from '../../App'
 
 // todo from backend api
 const data = [
@@ -20,15 +20,15 @@ const data = [
 ];
 
 export const FamilyList = () => {
-  const countContext = useContext(CountContext)
+  const countContext = useContext(StateContext)
 
   // useEffect(() => {
-  //   countContext.countDispatch({ type: 'INCREMENT' })
+  //   countContext.stateDispatch({ type: 'INCREMENT' })
   // }, [])
 
   const clickHandler = (e) => {
     console.log(e.currentTarget)
-    countContext.countDispatch({ type: 'INCREMENT' })
+    countContext.stateDispatch({ type: 'NEXT' })
     // CaregiverView()
   }
 
@@ -40,7 +40,7 @@ export const FamilyList = () => {
         renderItem={item => (
           <List.Item>
             <Card title={item.title} onClick={clickHandler} >
-              Card content {countContext.countState}
+              Card content
             </Card>
           </List.Item >
         )}

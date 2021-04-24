@@ -1,7 +1,7 @@
 import { List, Card } from 'antd';
 import React, { useContext, useEffect } from 'react'
 // import { Gstates } from '../../App'
-import { CountContext } from '../../App'
+import { StateContext } from '../../App'
 
 // todo from backend api
 const data = [

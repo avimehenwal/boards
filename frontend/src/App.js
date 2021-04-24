@@ -5,28 +5,27 @@ import { Header } from './component/Header'
 import { FamilyList } from './component/FamilyList'
 import { CaregiverList } from './component/CaregiverList'
 
-let infoModel = {
-  stage: 0
+let AppDB = {
+  stage: 1      // control Main Views
 }
 
-export const Gstates = React.createContext(infoModel);
-
-const initialState = 1
-// Reducer Fn
-function reducer(state, action) {
+function reducerFn(state, action) {
   switch (action.type) {
-    case 'INCREMENT':
-      return state + 1;
-    case 'decrement':
-      return state - 1
+    case 'NEXT':
+      state['stage'] += 1
+      return { ...state };
+    case 'PREVIOUS':
+      state['stage'] -= 1
+      return { ...state };
     case 'RESET':
-      return initialState
+      state['stage'] = AppDB['stage']
+      return { ...state };
     default:
       console.log('No case matched')
   }
 }
 
-export const CountContext = React.createContext();
+export const StateContext = React.createContext();
 
 const SelectView = ({ stage }) => (
   <div>
@@ -35,17 +34,18 @@ const SelectView = ({ stage }) => (
 )
 
 function App() {
-  const [count, dispatch] = useReducer(reducer, initialState);
-  console.log(count);
+  const [state, dispatch] = useReducer(reducerFn, AppDB);
+  console.log(state['stage']);
+
   return (
     <div className="App">
-      <CountContext.Provider value={{ countState: count, countDispatch: dispatch }}>
-        <Header text="My awesome app" stage={count} />
+      <StateContext.Provider value={{ State: state, stateDispatch: dispatch }}>
+        <Header text="My awesome app" stage={state['stage']} />
 
         <div id="main">
-          <SelectView stage={count} />
+          <SelectView stage={state['stage']} />
         </div>
-      </CountContext.Provider>
+      </StateContext.Provider>
     </div>
   );
 }
