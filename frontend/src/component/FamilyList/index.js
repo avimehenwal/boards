@@ -1,7 +1,9 @@
-import { List, Card } from 'antd';
+import { Typography, List, Card, } from 'antd';
 import React, { useContext, useEffect, useState } from 'react'
 import { StateContext } from '../../App'
-import { getUsers, getList } from '../../api'
+import { getUsers } from '../../api'
+const { Meta } = Card;
+const { Text, Link } = Typography;
 
 export const FamilyList = () => {
   const [apiData, setApiData] = useState([])
@@ -10,7 +12,9 @@ export const FamilyList = () => {
   useEffect(() => {
     getUsers()
       .then(res => setApiData(res))
-    return () => { }
+    return () => {
+      // optimization: save to global context
+    }
   }, [])
 
   // somehow fetch is playing games with me
@@ -22,24 +26,36 @@ export const FamilyList = () => {
   // }, []);
 
   const clickHandler = (e) => {
-    console.log(e.currentTarget)
+    const userId = e.currentTarget.getAttribute("data-user-id")
+    console.log(userId)
     // order matters
     countContext.stateDispatch({ type: 'NEXT' })
-    countContext.stateDispatch({ type: 'SELECTED_FAMILY', payload: e.currentTarget.innerText })
+    countContext.stateDispatch({ type: 'SELECTED_FAMILY', payload: userId })
   }
 
   return (
     <div>
       {< List
-        grid={{ gutter: 0, column: 1 }}
+        grid={{ gutter: 50, column: 3 }}
         dataSource={apiData}
         renderItem={item => (
           <List.Item>
-            <Card title={item.name} onClick={clickHandler} >
 
-              <p>{item.age}</p>
-              <p>{item.city}</p>
-            </Card>
+            <div data-user-id={item.id} onClick={clickHandler}>
+              <Card
+                hoverable
+                style={{ width: 240 }}
+                cover={<img alt={item.name} src={item.avatar} />}
+              >
+                <Meta title={item.name}
+                  description={item.city}
+                />
+                <br></br>
+                <Text type="secondary">{item.age}</Text>
+                {/* <Text type="secondary">{item.text}</Text> */}
+              </Card>,
+            </div>
+
           </List.Item >
         )}
       />}

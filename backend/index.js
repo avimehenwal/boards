@@ -18,9 +18,11 @@ app.get('/user', (req, res) => {
   faker.seed(50);
   for (let i = 0; i < 10; i++) {
     const newUser = {
+      id: faker.datatype.number(),
       name: faker.name.findName(),
-      age: faker.datatype.number(),
+      text: faker.lorem.text(),
       city: faker.address.city(),
+      avatar: faker.image.avatar()
     }
     users.push(newUser)
   }

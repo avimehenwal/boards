@@ -15,13 +15,13 @@ export function reducerFn(state, action) {
       state['stage'] = 1
       return { ...state };
 
+    case 'SAVE_FAMILIES':
+      return state
     case 'SELECTED_FAMILY':
       if (action.hasOwnProperty('payload')) {
         state['family'] = action.payload
-        return { ...state };
-      } else {
-        return new Error()
       }
+      return { ...state };
     default:
       console.log('No case matched')
   }
