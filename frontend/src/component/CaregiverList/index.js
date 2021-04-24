@@ -6,41 +6,34 @@ import { CountContext } from '../../App'
 // todo from backend api
 const data = [
   {
-    title: 'Title 1',
+    title: 'Caregiver 1',
   },
   {
-    title: 'Title 2',
+    title: 'Caregiver 2',
   },
   {
-    title: 'Title 3',
+    title: 'Caregiver 3',
   },
   {
-    title: 'Title 4',
+    title: 'Caregiver 4',
   },
 ];
 
-export const FamilyList = () => {
-  const countContext = useContext(CountContext)
-
-  // useEffect(() => {
-  //   countContext.countDispatch({ type: 'INCREMENT' })
-  // }, [])
+export const CaregiverList = () => {
 
   const clickHandler = (e) => {
     console.log(e.currentTarget)
-    countContext.countDispatch({ type: 'INCREMENT' })
-    // CaregiverView()
   }
 
   return (
     <>
       < List
-        grid={{ gutter: 0, column: 1 }}
+        grid={{ gutter: 15, column: 2 }}
         dataSource={data}
         renderItem={item => (
           <List.Item>
             <Card title={item.title} onClick={clickHandler} >
-              Card content {countContext.countState}
+              Card content
             </Card>
           </List.Item >
         )}
