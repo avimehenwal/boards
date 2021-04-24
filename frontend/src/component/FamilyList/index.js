@@ -5,7 +5,7 @@ import { getUsers } from '../../api'
 const { Meta } = Card;
 const { Text, Link } = Typography;
 
-export const FamilyList = () => {
+export const FamilyList = ({ column = 3 }) => {
   const [apiData, setApiData] = useState([])
   const countContext = useContext(StateContext)
 
@@ -30,13 +30,14 @@ export const FamilyList = () => {
     console.log(userId)
     // order matters
     countContext.stateDispatch({ type: 'NEXT' })
+    countContext.stateDispatch({ type: 'SET_ID', payload: userId })
     countContext.stateDispatch({ type: 'SELECTED_FAMILY', payload: userId })
   }
 
   return (
     <div>
       {< List
-        grid={{ gutter: 50, column: 3 }}
+        grid={{ gutter: 50, column: { column } }}
         dataSource={apiData}
         renderItem={item => (
           <List.Item>

@@ -1,6 +1,9 @@
+import { getUser } from './api'
+
 export const AppDB = {
   stage: 1,         // control Main Views
-  family: null      // loggedIn family view
+  family: null,     // loggedIn family view
+  id: null          // userId
 }
 
 export function reducerFn(state, action) {
@@ -11,6 +14,11 @@ export function reducerFn(state, action) {
     case 'PREVIOUS':
       state['stage'] -= 1
       return { ...state };
+    case 'SET_ID':
+      if (action.hasOwnProperty('payload')) {
+        state['id'] = action.payload
+      }
+      return { ...state };
     case 'RESET':
       state['stage'] = 1
       return { ...state };
@@ -19,7 +27,11 @@ export function reducerFn(state, action) {
       return state
     case 'SELECTED_FAMILY':
       if (action.hasOwnProperty('payload')) {
-        state['family'] = action.payload
+        getUser(action.payload)
+          .then(userInfo => {
+            state['family'] = userInfo
+            console.log(state);
+          })
       }
       return { ...state };
     default:

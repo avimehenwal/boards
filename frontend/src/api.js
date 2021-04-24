@@ -7,7 +7,7 @@ const BASE = 'http://localhost:3010'
 const makeApiCall = async (url) => {
   try {
     const res = await axios.get(`${BASE}${url}`)
-    console.log(res);
+    // console.log(res);
     return res.data
   } catch (e) {
     console.log('API Error :' + e);
@@ -20,4 +20,9 @@ export const getUsers = async () => {
   // console.log('API USERS :');
   // console.dir(users['users']);
   return users['users']
+}
+
+export const getUser = async (userId) => {
+  const userInfo = await makeApiCall(`/user/${userId}`)
+  return userInfo
 }

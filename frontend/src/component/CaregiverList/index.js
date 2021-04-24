@@ -1,43 +1,57 @@
-import { List, Card } from 'antd';
-import React, { useContext, useEffect } from 'react'
-// import { Gstates } from '../../App'
-import { StateContext } from '../../App'
+import { List, Card, Row, Col, Typography, Button } from 'antd';
+import React, { useState, useEffect } from 'react'
+import { H2 } from '../H2'
+import { FamilyCard } from '../FamilyCard'
+import { FamilyList } from '../FamilyList'
+import { PictureCards } from '../PictureCard'
+import { getUsers } from '../../api'
 
-// todo from backend api
-const data = [
-  {
-    title: 'Caregiver 1',
-  },
-  {
-    title: 'Caregiver 2',
-  },
-  {
-    title: 'Caregiver 3',
-  },
-  {
-    title: 'Caregiver 4',
-  },
-];
+import { StateContext } from '../../App'
+const { Text, Title } = Typography;
+const { Meta } = Card;
+
+export const BoardList = (props) => {
+  return (
+    <div>
+      <Card title={props.title}>
+        {props.children}
+      </Card>,
+    </div>
+  )
+}
 
 export const CaregiverList = () => {
+  const [caregiverData, setCaregiverData] = useState([])
+
+  useEffect(() => {
+    getUsers()
+      .then(res => {
+        console.dir(res);
+        setCaregiverData(res)
+      })
+  }, [])
 
   const clickHandler = (e) => {
     console.log(e.currentTarget)
   }
 
   return (
-    <>
-      < List
-        grid={{ gutter: 15, column: 2 }}
-        dataSource={data}
-        renderItem={item => (
-          <List.Item>
-            <Card title={item.title} onClick={clickHandler} >
-              Card content
-            </Card>
-          </List.Item >
-        )}
-      />
-    </>
+    <Row type="flex" justify="center" gutter={20} >
+      <Col justify="center" align="middle" span={8}>
+        <BoardList title="Family">
+          <FamilyCard />
+        </BoardList>
+      </Col>
+      <Col justify="center" align="middle" span={8}>
+        <BoardList title="Caregivers">
+          <PictureCards items={caregiverData} />
+        </BoardList>
+      </Col>
+      <Col justify="center" align="middle" span={8}>
+        <BoardList title="Selected">
+          <PictureCards items={caregiverData} />
+        </BoardList>
+      </Col>
+    </Row >
   )
 }

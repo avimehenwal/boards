@@ -3,5 +3,9 @@
 }
 
 header {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+}
+
+.ant-col {
+  /* border: 2px solid gray; */
 }

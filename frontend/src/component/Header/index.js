@@ -1,4 +1,4 @@
-import { Row, Col } from 'antd';
+import { Row } from 'antd';
 import { Typography } from 'antd';
 import React, { useContext } from 'react'
 import { StateContext } from '../../App'
