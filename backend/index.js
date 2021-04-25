@@ -60,7 +60,7 @@ app.get('/user/:userId', (req, res) => {
 let initialItems = [
   {
     "status": "unseen",
-    "id": "23",
+    "id": "2",
     "name": "Marvin Blanda",
     "city": "East Zena",
     "text": "est qui voluptatem",
@@ -68,7 +68,7 @@ let initialItems = [
   },
   {
     "status": "approved",
-    "id": "23245",
+    "id": "1",
     "name": "Leticia Frami",
     "city": "South Justinemouth",
     "text": "Odio ut dolores aliquid mollitia. Reiciendis aut sunt voluptates. Natus labore ipsam sint necessitatibus. Tempore voluptatem reprehenderit.",
@@ -76,7 +76,7 @@ let initialItems = [
   },
   {
     "status": "declined",
-    "id": "333",
+    "id": "3",
     "name": "Seth Ondricka",
     "city": "Maestad",
     "text": "Porro sint adipisci magnam voluptatem soluta quasi delectus aut tempora. Porro mollitia quibusdam sed itaque porro at.",
@@ -88,7 +88,7 @@ let initialItems = [
     "status": "declined",
     // "status": "approved",
 
-    "id": "4950",
+    "id": "4",
     "name": "Stuart Beier",
     "text": "Ut omnis corrupti in et.",
     "city": "Tulare",
@@ -102,13 +102,21 @@ initialItems.map(item => {
 
 async function getFromStore(id) {
   let result = await getAsync(id)
-  // console.log(typeof result);
   return JSON.parse(result)
 }
 
-app.get('/boardapp', (req, res) => {
+app.get('/boardapp', async (req, res) => {
   console.log(req.url);
-  res.json(items)
+  const validkeys = [1, 2, 3, 4]
+
+  const promises = validkeys.map(async id => {
+    let value = await getFromStore(id.toString())
+    return value
+  })
+
+  const results = await Promise.all(promises)
+  console.log(results)
+  res.json(results)
 })
 
 app.get('/boardapp/:userId', async (req, res) => {
