@@ -16,13 +16,12 @@ const SelectView = ({ stage }) => (
 
 function App() {
   const [state, dispatch] = useReducer(reducerFn, AppDB);
-  console.dir(state);
+  // console.dir(state);
 
   return (
     <div className="App">
       <StateContext.Provider value={{ State: state, stateDispatch: dispatch }}>
         <Header text="My awesome app" stage={state['stage']} />
-
         <div id="main">
           <SelectView stage={state['stage']} />
         </div>

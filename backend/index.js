@@ -14,9 +14,11 @@ app.get('/', (req, res) => {
 
 app.get('/user', (req, res) => {
   console.log(req.url);
+  let limit = 10
+  if (req.query != {}) { limit = req.query.limit }
   let users = []
   faker.seed(50);
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < limit; i++) {
     const newUser = {
       id: faker.datatype.number(),
       name: faker.name.findName(),

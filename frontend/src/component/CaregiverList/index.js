@@ -24,11 +24,12 @@ export const CaregiverList = () => {
   const [caregiverData, setCaregiverData] = useState([])
 
   useEffect(() => {
-    getUsers()
+    getUsers(3)
       .then(res => {
         console.dir(res);
         setCaregiverData(res)
       })
+
   }, [])
 
   const clickHandler = (e) => {
@@ -49,7 +50,6 @@ export const CaregiverList = () => {
       </Col>
       <Col justify="center" align="middle" span={8}>
         <BoardList title="Selected">
-          <PictureCards items={caregiverData} />
         </BoardList>
       </Col>
     </Row >

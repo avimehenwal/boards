@@ -13,7 +13,8 @@ export const FamilyList = ({ column = 3 }) => {
     getUsers()
       .then(res => setApiData(res))
     return () => {
-      // optimization: save to global context
+      // optimization: save to global context on removal?
+      // save a n/w call on next render?
     }
   }, [])
 
