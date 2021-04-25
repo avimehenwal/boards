@@ -4,6 +4,8 @@ var cors = require('cors')
 const redis = require('redis')
 const { promisify } = require("util");
 const bodyParser = require("body-parser");
+// const WebSocket = require('ws');
+
 // import { name, internet, helpers, datatype, address } from 'faker';
 
 const app = express()
@@ -13,6 +15,10 @@ const port = process.env.PORT || 3010
 const REDIS_PORT = process.env.REDIS_PORT || 6379
 const client = redis.createClient(REDIS_PORT)
 const getAsync = promisify(client.get).bind(client);
+
+// server Push via websocket protocol
+// const wss = new WebSocket.Server({ port: 8080 });
+
 
 // getAsync.then(console.log).catch(console.error);
 
@@ -115,8 +121,8 @@ app.get('/boardapp', async (req, res) => {
     let value = await getFromStore(id.toString())
     return value
   })
-
   const results = await Promise.all(promises)
+
   console.log(results.length)
   res.json(results)
 })

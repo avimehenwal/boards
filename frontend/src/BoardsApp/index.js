@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { Header } from './Component/Header'
-import { CardContainer } from './Component/CardContainer'
+import React, { useEffect, useState, useRef } from 'react'
 import { getBoardData } from './apis'
+import { Header } from './Component/Header'
+import { AppState } from './ContextStore/BoardState'
+import { CardContainer } from './Component/CardContainer'
 
 export const BoardsApp = () => {
   const [jsonData, setJsonData] = useState([])
-  // server push or Polling?
-  // const [pollingInterval, setPollingInterval] = useState(3)
 
   useEffect(() => {
     getBoardData()
@@ -16,10 +15,13 @@ export const BoardsApp = () => {
     return () => { }
   }, [])
 
+
   return (
     <div>
-      <Header title="My Board App" text="move around the list" />
-      <CardContainer data={jsonData} />
+      <AppState>
+        <Header title="My Board App" text="move around the list" />
+        <CardContainer data={jsonData} />
+      </AppState>
     </div>
   )
 }
