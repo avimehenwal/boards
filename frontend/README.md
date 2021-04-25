@@ -2,10 +2,12 @@
 
 ## Features
 
-- [x] State Persistance with backend
-- [x] Interactive UI with animation
+- [x] Data Persistance using in-memory redis backend
 
-## Component Tree Hierarchy
+### later Enhancements
+
+- [ ] Interactive UI with animation
+- [ ] use webSockets or Server Push
 
 ## Logic Decisions
 

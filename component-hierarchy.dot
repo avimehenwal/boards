@@ -1,0 +1,21 @@
+digraph doesntMatter {
+label = "Component Hierarchy"
+    layout=dot
+    rankdir=TD
+    bgcolor="transparent"
+    node [fontsize=20, colorscheme=set312, style=filled, shape=box]
+    edge [fontname=Helvetica]
+
+    a [label = "BoardApplication", fillcolor=1,]
+    b [label = "LeftContainer", fillcolor=2,]
+    c [label = "MiddleContainer", fillcolor=3,]
+    d [label = "RightContainer", fillcolor=4,]
+    e [label = "Cards", fillcolor=5,]
+    f [label = "ButtonPair", fillcolor=6]
+
+    edge [style="setlinewidth(3)"]
+    a -> { b c d }
+    { b c d } -> e
+    e -> f
+}
+
