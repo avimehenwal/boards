@@ -1,11 +1,11 @@
-import { ButtonSet } from './Component/ButtonSet'
+import { DataCard } from './Component/DataCard'
 
 import React from 'react'
 
 export const BoardsApp = () => {
   return (
     <div>
-      <ButtonSet />
+      <DataCard />
     </div>
   )
 }
