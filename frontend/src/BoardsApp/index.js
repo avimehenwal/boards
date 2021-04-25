@@ -1,27 +1,34 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { getBoardData } from './apis'
 import { Header } from './Component/Header'
-import { AppState } from './ContextStore/BoardState'
 import { CardContainer } from './Component/CardContainer'
+// import { useInterval } from './customHook'
 
 export const BoardsApp = () => {
   const [jsonData, setJsonData] = useState([])
 
   useEffect(() => {
-    getBoardData()
-      .then(res => {
-        setJsonData(res)
-      })
-    return () => { }
-  }, [])
+    const interval = setInterval(() => {
+      console.log('This will run every second!');
+      getBoardData()
+        .then(res => {
+          setJsonData(res)
+        })
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
+  // useInterval(async () => {
+  //   getBoardData()
+  //     .then(res => {
+  //       setJsonData(res)
+  //     })
+  // }, 3000)
 
   return (
-    <div>
-      <AppState>
-        <Header title="My Board App" text="move around the list" />
-        <CardContainer data={jsonData} />
-      </AppState>
-    </div>
+    <>
+      <Header title="My Board App" text="move around the list" />
+      <CardContainer data={jsonData} />
+    </>
   )
 }

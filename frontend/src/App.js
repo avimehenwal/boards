@@ -1,15 +1,16 @@
+import React from 'react'
 import './App.css';
 import 'antd/dist/antd.css';
 import { BoardsApp } from './BoardsApp'
-import { AppState } from './BoardsApp/ContextStore/BoardState'
+import { BoardAppState } from './ContextStore/BoardState'
 
 function App() {
   return (
-    <div className="App">
-      <AppState>
+    <BoardAppState>
+      <div className="App">
         <BoardsApp />
-      </AppState>
-    </div>
+      </div>
+    </BoardAppState>
   );
 }
 
