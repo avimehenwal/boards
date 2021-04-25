@@ -3,14 +3,17 @@ var faker = require('faker');
 var cors = require('cors')
 const redis = require('redis')
 const { promisify } = require("util");
+const bodyParser = require("body-parser");
 // import { name, internet, helpers, datatype, address } from 'faker';
 
 const app = express()
 app.use(cors())
+app.use(bodyParser.json()) // for parsing application/json
 const port = process.env.PORT || 3010
 const REDIS_PORT = process.env.REDIS_PORT || 6379
 const client = redis.createClient(REDIS_PORT)
 const getAsync = promisify(client.get).bind(client);
+
 // getAsync.then(console.log).catch(console.error);
 
 // server log format
@@ -108,22 +111,48 @@ async function getFromStore(id) {
 app.get('/boardapp', async (req, res) => {
   console.log(req.url);
   const validkeys = [1, 2, 3, 4]
-
   const promises = validkeys.map(async id => {
     let value = await getFromStore(id.toString())
     return value
   })
 
   const results = await Promise.all(promises)
-  console.log(results)
+  console.log(results.length)
   res.json(results)
 })
 
 app.get('/boardapp/:userId', async (req, res) => {
   console.log('req.url');
-  const oldData = await getFromStore(23)
-  console.dir(oldData)
-  res.json(oldData)
+  const data = await getFromStore(req.params.userId)
+  console.dir(data)
+  res.json(data)
+})
+
+app.post('/boardapp/:userId', async (req, res) => {
+  console.log(req.url);
+  let error = {
+    httpStatus: 404,
+    type: 'error',
+    msg: 'some useful message'
+  }
+  if (req.body.status) {
+    const validStatusValues = ['approved', 'unseen', 'declined']
+    var newStatus = req.body.status;
+    if (newStatus in validStatusValues) {
+      const data = await getFromStore(req.params.userId)
+      data['status'] = newStatus
+      const transaction = await client.set(req.params.userId, JSON.stringify(data), redis.print);
+      const verifyTransaction = await getFromStore(req.params.userId)
+      console.dir(transaction, verifyTransaction)
+      res.json(verifyTransaction)
+    } else {
+      error['msg'] = 'Not a valid status value. Use from ' + validStatusValues.join(', ')
+      res.status(404).json(error)
+    }
+  } else {
+    error['msg'] = 'status key is required in POST body'
+    res.status(404).json(error)
+  }
 })
 
 
