@@ -133,12 +133,13 @@ app.post('/boardapp/:userId', async (req, res) => {
   let error = {
     httpStatus: 404,
     type: 'error',
-    msg: 'some useful message'
+    msg: 'some useful message',
+    desc: null,
   }
   if (req.body.status) {
     const validStatusValues = ['approved', 'unseen', 'declined']
     var newStatus = req.body.status;
-    if (newStatus in validStatusValues) {
+    if (validStatusValues.includes(newStatus)) {
       const data = await getFromStore(req.params.userId)
       data['status'] = newStatus
       const transaction = await client.set(req.params.userId, JSON.stringify(data), redis.print);
@@ -147,6 +148,7 @@ app.post('/boardapp/:userId', async (req, res) => {
       res.json(verifyTransaction)
     } else {
       error['msg'] = 'Not a valid status value. Use from ' + validStatusValues.join(', ')
+      error['desc'] = 'You sent - ' + newStatus
       res.status(404).json(error)
     }
   } else {

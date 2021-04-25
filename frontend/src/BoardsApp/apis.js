@@ -25,7 +25,8 @@ export const getBoardData = async () => {
   return result
 }
 
-export const postStatusChange = async (id) => {
-  const result = await nwCaller('/boardapp/:id')
+export const postStatusChange = async (id, postBodyObj) => {
+  const result = await nwCaller.post(`/boardapp/${id}`, postBodyObj)
+  console.dir(result);
   return result
 }

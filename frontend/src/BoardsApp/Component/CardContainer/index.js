@@ -12,17 +12,38 @@ const BaseContainer = ({ containerTitle, cardStatus, data }) => (
   </Card>
 )
 
-const LeftContainer = ({ data }) => (
-  <BaseContainer containerTitle="Declined Container" cardStatus="declined" data={data} />
-)
+const LeftContainer = ({ data }) => {
+  const cardStatus = {
+    currentStatus: "declined",
+    nextStatus: "unseen",
+    prevStatus: "",
+  }
+  return (
+    <BaseContainer containerTitle="Declined Container" data={data} cardStatus={cardStatus} />
+  )
+}
 
-const MiddleContainer = ({ data }) => (
-  <BaseContainer containerTitle="Unseen Container" cardStatus="unseen" data={data} />
-)
+const MiddleContainer = ({ data }) => {
+  const cardStatus = {
+    currentStatus: "unseen",
+    nextStatus: "approved",
+    prevStatus: "declined",
+  }
+  return (
+    <BaseContainer containerTitle="Unseen Container" data={data} cardStatus={cardStatus} />
+  )
+}
 
-const RightContainer = ({ data }) => (
-  <BaseContainer containerTitle="Approved Container" cardStatus="approved" data={data} />
-)
+const RightContainer = ({ data }) => {
+  const cardStatus = {
+    currentStatus: "approved",
+    nextStatus: "",
+    prevStatus: "declined",
+  }
+  return (
+    <BaseContainer containerTitle="Approved Container" data={data} cardStatus={cardStatus} />
+  )
+}
 
 
 export const CardContainer = ({ data }) => {

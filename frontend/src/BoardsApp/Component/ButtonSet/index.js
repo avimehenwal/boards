@@ -1,14 +1,17 @@
 import React from 'react'
 import { Row, Col, Button } from 'antd';
+import { postStatusChange } from '../../apis'
 
-export const ButtonSet = ({ cardStatus = 'unseen', id = 0 }) => {
+export const ButtonSet = ({ cardStatus, id = 0 }) => {
 
-  const EHApprove = (e) => {
-    console.log('APPROVED clicked ID ' + id);
+  const EHApprove = async (e) => {
+    let status = await postStatusChange(id, { status: cardStatus.nextStatus })
+    console.log(`APPROVED clicked ID ${id} next ${cardStatus.nextStatus} status ${status}`);
   }
 
-  const EHDecline = (e) => {
-    console.log('DECLINE clicked ' + id);
+  const EHDecline = async (e) => {
+    let status = await postStatusChange(id, { status: cardStatus.prevStatus })
+    console.log(`DECLINED clicked ID ${id} next ${cardStatus.prevStatus} status ${status}`);
   }
 
   return (
@@ -17,14 +20,14 @@ export const ButtonSet = ({ cardStatus = 'unseen', id = 0 }) => {
       <Row type="flex" justify="center" gutter={16}>
         <Col align="middle" span={8}>
           <Button type="danger" onClick={EHDecline}
-            disabled={(cardStatus === 'declined') ? true : false}
+            disabled={(cardStatus.currentStatus === 'declined') ? true : false}
           >
             Decline
           </Button>
         </Col>
         <Col justify="center" align="middle" span={8}>
           <Button type="primary" onClick={EHApprove}
-            disabled={(cardStatus === 'approved') ? true : false}
+            disabled={(cardStatus.currentStatus === 'approved') ? true : false}
           >
             Approve
           </Button>
