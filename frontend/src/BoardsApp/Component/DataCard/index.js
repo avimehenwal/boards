@@ -13,18 +13,19 @@ const defaultProps = {
   src: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
 }
 
-export const DataCard = ({ props = defaultProps }) => {
+export const DataCard = ({ cardStatus, data }) => {
   return (
     <div>
       <Card
-        style={{ width: 300 }}
+      // style={{ width: 200 }}
       >
         <Meta
-          avatar={<Avatar src={props.src} />}
-          title={props.title}
-          description={props.desc}
+          avatar={<Avatar src={data.avatar} />}
+          title={data.name}
+          description={data.city}
+        // description={data.text}
         />
-        <ButtonSet cardStatus={props.cardStatus} />
+        <ButtonSet cardStatus={cardStatus} id={data.id} />
       </Card>,
     </div>
   )

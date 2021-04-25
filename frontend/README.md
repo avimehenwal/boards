@@ -9,4 +9,4 @@
 
 ## Logic Decisions
 
-- card-status {approved, declined, unseen or null}
+- `cardStatus` {approved, declined, unseen or null}
