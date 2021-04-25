@@ -1,0 +1,12 @@
+.App {
+  margin: 1em;
+}
+
+header {
+  margin-bottom: 50px;
+}
+
+/* for debugging css */
+/* .ant-col {
+  border: 2px solid gray;
+} */

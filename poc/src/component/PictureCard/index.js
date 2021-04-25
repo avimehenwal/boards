@@ -1,28 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Card, Typography } from 'antd';
 import { ButtonSet } from '../ButtonSet'
 const { Meta } = Card;
 const { Text } = Typography;
 
-const EHapproved = (e) => {
-  console.log(e.currentTarget)
-  // document.addEventListener('approve', alert('Approved'))
-  // if (e.target.getAttribute('type') === 'button') {
-  // }
-}
-
-
 const RestPictureCard = ({ item }) => {
-  // useEffect(() => {
-  //   document.addEventListener('approve', alert('Approved'))
-  //   return () => {
-  //     document.removeEventListener('approve', alert('Removed'))
-  //   }
-  // }, [])
+  const cardsRef = useRef(new Array())
+
+  useEffect(() => {
+    cardsRef.map(ref => (
+      ref.current.addEventListener('approve', () => alert('approve'))
+    ))
+    return () => {
+      cardsRef.map(ref => (
+        ref.current.removeEventListener('approve', () => alert('approve'))
+      ))
+    }
+  }, [cardsRef])
+
+  const EHApprove = () => {
+    const newEvent = new CustomEvent('approve')
+    // ref1.current.dispatchEvent(newEvent)
+  }
 
   return (
     <>
-      <div data-user-id={item.id} key={item.id} onClick={EHapproved}>
+      <div ref={cardsRef} data-user-id={item.id} key={item.id} >
         <Card type="inner" title={item.name} style={{ marginTop: 16 }} >
           <Meta description={item.city} /><br></br>
           <img alt={item.name} src={item.avatar} />
@@ -35,19 +38,30 @@ const RestPictureCard = ({ item }) => {
   )
 }
 
-const FirstPictureCard = ({ item }) => (
-  <>
-    <div data-user-id={item.id} key={item.id} onClick={EHapproved}>
-      <Card type="inner" title={item.name} >
-        <Meta description={item.city} /><br></br>
-        <img alt={item.name} src={item.avatar} />
-        <br></br><br></br>
-        <Text type="secondary">{item.text}</Text>
-        <ButtonSet></ButtonSet>
-      </Card>
-    </div>
-  </>
-)
+const FirstPictureCard = ({ item }) => {
+  const cardRef = useRef()
+
+  useEffect(() => {
+    cardRef.current.addEventListener('approve', () => alert('approve'))
+    return () => {
+      cardRef.current.removeEventListener('approve', () => alert('approve'))
+    }
+  }, [cardRef])
+
+  return (
+    <>
+      <div data-user-id={item.id} key={item.id} ref={cardRef} >
+        <Card type="inner" title={item.name} >
+          <Meta description={item.city} /><br></br>
+          <img alt={item.name} src={item.avatar} />
+          <br></br><br></br>
+          <Text type="secondary">{item.text}</Text>
+          <ButtonSet></ButtonSet>
+        </Card>
+      </div>
+    </>
+  )
+}
 
 // Hide implementation details and provide a generic card component
 export const PictureCards = ({ items = [] }) => {

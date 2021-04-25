@@ -35,7 +35,9 @@ export const Header = ({ text, stage }) => {
         <Text type="secondary">Current stage {stage}</Text>
       </Row>
 
-      <Button ref={ref1} onClick={EHApprove} >Custom Event</Button>
+      <Button ref={ref1}>
+        <div onClick={EHApprove}>Custom Event</div>
+      </Button>
 
     </header >
   )
