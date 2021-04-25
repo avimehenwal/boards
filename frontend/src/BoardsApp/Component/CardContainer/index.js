@@ -7,7 +7,7 @@ const BaseContainer = ({ containerTitle, cardStatus, data }) => (
   <Card title={containerTitle}>
     {/* {JSON.stringify(data)} */}
     {data.map(item => (
-      <DataCard cardStatus={cardStatus} data={item} />
+      <DataCard cardStatus={cardStatus} data={item} key={item.id} />
     ))}
   </Card>
 )
