@@ -2,7 +2,7 @@
 
 > Approve and Decline cards
 
-![demo](./boards.png)
+![demo](./artwork/demo.gif)
 
 ## Tech Stack
 
@@ -11,7 +11,7 @@
 | Frontend | react with hooks, axios |
 | Backend  | nodejs, express, redis  |
 
-![Frontend Component Hierarchy](./component-hierarchy.png)
+![Frontend Component Hierarchy](./artwork/component-hierarchy.png)
 
 ## Integration
 
