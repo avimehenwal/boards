@@ -1,8 +1,8 @@
 # boards
 
-![Frontend Component Hierarchy](../boards/component-hierarchy.png)
-
 > Approve and Decline cards
+
+![demo](./boards.png)
 
 ## Tech Stack
 
@@ -10,6 +10,8 @@
 | -------- | ----------------------- |
 | Frontend | react with hooks, axios |
 | Backend  | nodejs, express, redis  |
+
+![Frontend Component Hierarchy](./component-hierarchy.png)
 
 ## Integration
 
@@ -22,6 +24,20 @@
 ### Backend ---> Frontend
 
 todo: ditch polling in favor of server push or webSocket ?
+
+## How to run?
+
+Backend
+
+1. start redis-server on server `redis-server`
+2. `cd backend; yarn install`
+3. `node index.js` should start the backend service
+
+Frontend
+
+1. From root `cd frontend`
+2. Install dependencies `yarn install`
+3. `yarn start`
 
 #### :v: Get in touch with me
 

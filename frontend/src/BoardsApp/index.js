@@ -14,7 +14,7 @@ export const BoardsApp = () => {
         .then(res => {
           setJsonData(res)
         })
-    }, 3000);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
